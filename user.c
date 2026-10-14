@@ -64,11 +64,11 @@ void printUser(struct User* user) {
 
 void generateDigest(struct Digest* digest, struct User* User) {
     unsigned char* result = SSHA((unsigned char*)User, STRUCT_SIZE);
-    digest->hash0 = result[1]; // Intentionally use the wrong index
-    digest->hash1 = result[2];
-    digest->hash2 = result[3];
-    digest->hash3 = result[4];
-    digest->hash4 = result[5];
+    digest->hash0 = result[0]; // Intentionally use the wrong index
+    digest->hash1 = result[1];
+    digest->hash2 = result[2];
+    digest->hash3 = result[3];
+    digest->hash4 = result[4];
 }
 void verify(struct User* curr) {
     int height = 2;
