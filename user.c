@@ -5,7 +5,7 @@
 #include "user.h"
 
 struct User* add(struct User * head, char* Username) {
-	//Sleep((rand() % 10 + 1) * 1000);
+	Sleep(1000);
 
 	struct User* newHead = (struct User*)malloc(sizeof(struct User));
 	strcpy(newHead->Username, Username);
