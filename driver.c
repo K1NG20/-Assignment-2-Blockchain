@@ -11,5 +11,7 @@ int main(void) {
 	head = add(head, "matt");
 	head = add(head, "sumita");
 	head = add(head, "james");
+
+	strcpy(head->next->Username, "hacker");
 	verify(head);
 }
