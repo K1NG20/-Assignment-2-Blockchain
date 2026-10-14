@@ -64,7 +64,7 @@ void printUser(struct User* user) {
 
 void generateDigest(struct Digest* digest, struct User* User) {
     unsigned char* result = SSHA((unsigned char*)User, STRUCT_SIZE);
-    digest->hash0 = result[0]; // Intentionally use the wrong index
+    digest->hash0 = result[0]; 
     digest->hash1 = result[1];
     digest->hash2 = result[2];
     digest->hash3 = result[3];
@@ -90,12 +90,12 @@ void verify(struct User* curr) {
 
         if (prev != NULL) {
             struct Digest prev_digest_computed;
-            generateDigest(&prev_digest_computed, curr); // Intentionally use the wrong user
+            generateDigest(&prev_digest_computed, prev);
 
             if (digest_equal(prev_digest_computed, curr->hash)) {
                 printf("User %d passed\n", height);
                 printf("\t%-20s", "User Data:");
-                printUser(curr);
+                printUser(prev);
                 printf("\t%-20s", "Saved Hash:");
                 printDigest(curr->hash);
                 printf("\t%-20s", "Calculated Hash:");
