@@ -34,6 +34,61 @@ unsigned char* SSHA(const unsigned char* msg, size_t length) {
     return digest;
 }
 
+#include <stddef.h>
+#include <stdlib.h>
+
+unsigned char* SSHA2(const unsigned char* msg, size_t lenght)
+{
+    if (msg == NULL && lenght > 0) {
+        return NULL;
+    }
+
+    unsigned char A = 56;
+    unsigned char B = 99;
+    unsigned char C = 102;
+    unsigned char D = 67;
+    unsigned char E = 76;
+
+    for (size_t i = 0; i < lenght; i++) {
+        for (int round = 0; round < 8; round++) {
+
+            unsigned char shiftA = A >> 2;
+            unsigned char shiftB = B >> 1;
+
+            unsigned char and1 = B & C;
+            unsigned char and2 = C & D;
+            unsigned char orResult = and1 | and2;
+
+            unsigned char newA = E;
+            unsigned char newB = A;
+            unsigned char newC = (unsigned char)(shiftA + E);
+            unsigned char newD = shiftA ^ shiftB;
+            unsigned char newE =
+                (unsigned char)(shiftB + orResult + msg[i]);
+
+            A = newA;
+            B = newB;
+            C = newC;
+            D = newD;
+            E = newE;
+        }
+    }
+
+    unsigned char* hash = malloc(5);
+
+    if (hash == NULL) {
+        return NULL;
+    }
+
+    hash[0] = A;
+    hash[1] = B;
+    hash[2] = C;
+    hash[3] = D;
+    hash[4] = E;
+
+    return hash;
+}
+
 int digest_equal(struct Digest digest1, struct Digest digest2) {
     return ((digest1.hash0 == digest2.hash0) &&
         (digest1.hash1 == digest2.hash1) &&
@@ -45,3 +100,4 @@ int digest_equal(struct Digest digest1, struct Digest digest2) {
 void printDigest(struct Digest digest) {
     printf("%d %d %d %d %d\n", digest.hash0, digest.hash1, digest.hash2, digest.hash3, digest.hash4);
 }
+

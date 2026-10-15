@@ -69,7 +69,7 @@ void generateDigest(struct Digest* digest, struct User* User) {
     digest->hash2 = result[2];
     digest->hash3 = result[3];
     digest->hash4 = result[4];
-}
+} 
 void verify(struct User* curr) {
     int height = 2;
 
